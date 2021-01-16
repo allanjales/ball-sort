@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ball Sort</title>
+<meta name="author" content="Allan Jales https://github.com/allanjales/">
+<script type="text/javascript" src="js/game.js"></script>
+<script type="text/javascript" src="js/Flask.js"></script>
+<script type="text/javascript" src="js/Ball.js"></script>
+<script type="text/javascript" src="js/Animation.js"></script>
+<style>
+body{
+	margin: 0;
+}
+
+.m-auto {
+	margin: auto;
+}
+
+#canvas{
+	background-color: #EEE;
+	border-color: #CCC;
+	border-width: 6px;
+	border-style: solid;
+}
+</style>
+
+</head>
+
+<body>
+	<main class="container">
+		<div class="m-auto" style="width: max-content">
+			<canvas id="canvas" width="720" height="720"></canvas>
+		</div>
+	</main>
+</body>
+</html>
+
+<script type="text/javascript">
+
+	const canvas = document.getElementById("canvas");
+	const context = canvas.getContext("2d");
+
+	canvas.addEventListener("click", function() {
+		const canvas_rect = canvas.getBoundingClientRect()
+		game.click(event.pageX-canvas_rect.left, event.pageY-canvas_rect.top)
+	});
+
+	game.next();
+
+	renderScreen();
+
+	//Draw in canvas
+	function renderScreen()
+	{
+		//Clear canvas
+		context.clearRect(0, 0, canvas.width, canvas.height);
+
+		game.drawFlasks()
+		game.drawRestartButton(canvas.width - 110, 10, 90, 65, 20)
+		game.drawNextButton(canvas.width - 220, 10, 90, 65, 20)
+		game.drawGameOverScreen()
+
+		//Recursive
+		requestAnimationFrame(renderScreen);
+	}
+
+</script>
